@@ -43,9 +43,9 @@ h1 svg {
 }
 
 button {
-    background: rgb(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .2);
     border: 0;
-    color: rgb(255, 255, 255, .5);
+    color: rgba(255, 255, 255, .5);
     padding: 5px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -59,7 +59,7 @@ div#game {
 }
 
 div#game:focus {
-    outline: none;
+    outline: 0;
 }
 
 #words {
@@ -75,7 +75,7 @@ div#game:focus {
     position: absolute;
     inset: 0;
     text-align: center;
-    padding: 35px;
+    padding-top: 35px;
 }
 
 #game:focus #focus-error {
@@ -96,7 +96,7 @@ div.word {
     color: #f55;
 }
 
-@keyframes blink {
+@keyframes blink{
     0% {
         opacity: 1;
     }
@@ -112,12 +112,11 @@ div.word {
     display: none;
     width: 2px;
     height: 1.6rem;
+    background: var(--primaryColor);
     position: fixed;
-    background-color: var(--primaryColor);
-    top: 201px;
-    left: 85px;
-    animation: blink 0.75s infinite;
-    transition: left 0.1s ease-in-out, top 0.1s ease-in-out;
+    top: 198px;
+    left: 18px;
+    animation: blink .3s infinite;
 }
 
 #game:focus #cursor {

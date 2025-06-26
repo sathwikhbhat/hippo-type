@@ -14,7 +14,8 @@ function randomWord() {
 
 function formatWord(word) {
     return `<div class="word">
-        <span class="letter">${word.split('').join('</span><span class="letter">')}</span></div>`;
+        ${word.split('').map(letter => `<span class="letter">${letter}</span>`).join("")}
+    </div>`;
 }
 
 function newGame() {
@@ -35,8 +36,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
 
     console.log({key, expectedLetter});
 
-    if(isLetter) {
-        if(currentLetter) {
+    if (isLetter) {
+        if (currentLetter) {
             addClass(currentLetter, key === expectedLetter ? "correct" : "incorrect");
             removeClass(currentLetter, "current");
             addClass(currentLetter.nextSibling, "current");
