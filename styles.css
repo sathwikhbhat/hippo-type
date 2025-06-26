@@ -58,12 +58,16 @@ div#game {
     position: relative;
 }
 
+div#game:focus {
+    outline: none;
+}
+
 #words {
     filter: blur(5px);
     color: var(--textSecondary);
 }
 
-#game:focus #words{
+#game:focus #words {
     filter: blur(0);
 }
 
@@ -85,9 +89,37 @@ div.word {
 }
 
 .letter.correct {
-    color: #fff;
+    color: #5f5;
 }
 
 .letter.incorrect {
     color: #f55;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#cursor {
+    display: none;
+    width: 2px;
+    height: 1.6rem;
+    position: fixed;
+    background-color: var(--primaryColor);
+    top: 201px;
+    left: 85px;
+    animation: blink 0.75s infinite;
+    transition: left 0.1s ease-in-out, top 0.1s ease-in-out;
+}
+
+#game:focus #cursor {
+    display: block;
 }
