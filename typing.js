@@ -32,7 +32,11 @@ function newGame() {
 
     document.getElementById("info").innerHTML = `Time: ${gameTime / 1000}s`;
 
+    clearInterval(window.timer);
     window.timer = null;
+    window.gameStart = null;
+
+    updateCursorPosition();
 }
 
 function getWPM() {
@@ -67,9 +71,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
     const isBackspace = ev.key === "Backspace";
     const isFirstLetter = currentLetter === currentWord.firstChild;
 
-    if (document.querySelector('#game.over')) {
+    if (document.getElementById('game').classList.contains('over'))
         return;
-    }
 
     console.log({key, expectedLetter});
 
@@ -148,19 +151,53 @@ document.getElementById("game").addEventListener("keyup", ev => {
         words.style.marginTop = margin - 35 + "px";
     }
 
-    const nextLetter = document.querySelector(".letter.current");
-    const nextWord = document.querySelector(".word.current");
-    if (!nextLetter) {
-        const nextWord = document.querySelector(".word.current");
-        const cursor = document.getElementById("cursor");
-        cursor.style.top = (nextLetter || nextWord).getBoundingClientRect().top + 2 + "px";
-        cursor.style.left = (nextLetter || nextWord).getBoundingClientRect()[nextLetter ? "left" : "right"] + 2 + "px";
-    }
+    updateCursorPosition();
 
 })
 
+function updateCursorPosition() {
+    const cursor = document.getElementById("cursor");
+    const game = document.getElementById("game");
+
+    if (!cursor || !game)
+        return;
+
+    let target = document.querySelector(".letter.current");
+
+    if (!target) {
+        const word = document.querySelector(".word.current");
+        if (word) {
+            const lastLetter = word.lastChild;
+            if (lastLetter) {
+                const rect = lastLetter.getBoundingClientRect();
+                const gameRect = game.getBoundingClientRect();
+                const offsetTop = rect.top - gameRect.top;
+                const offsetLeft = rect.right - gameRect.left;
+
+                cursor.style.top = offsetTop + "px";
+                cursor.style.left = offsetLeft + "px";
+                return;
+            }
+        }
+
+        cursor.style.display = "none";
+        return;
+    }
+
+    const rect = target.getBoundingClientRect();
+    const gameRect = game.getBoundingClientRect();
+
+    const offsetTop = rect.top - gameRect.top;
+    const offsetLeft = rect.left - gameRect.left;
+
+    cursor.style.top = offsetTop + "px";
+    cursor.style.left = offsetLeft + "px";
+}
+
 document.getElementById("newGame").addEventListener("click", () => {
-    gameOver();
+    const game = document.getElementById("game");
+
+    game.classList.remove("over");
     newGame();
 });
 

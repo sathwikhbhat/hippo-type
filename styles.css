@@ -15,8 +15,9 @@ body {
 }
 
 main {
-    width: 600px;
+    max-width: 900px;
     margin: 50px auto;
+    padding: 0 1rem;
 }
 
 h1 {
@@ -109,15 +110,18 @@ div.word {
     }
 }
 
+#game {
+    position: relative;
+}
+
 #cursor {
     display: none;
     width: 2px;
     height: 1.6rem;
     background: var(--primaryColor);
-    position: fixed;
-    top: 198px;
-    left: 18px;
+    position: absolute;
     animation: blink .75s infinite;
+    z-index: 1;
 }
 
 #game:focus #cursor {
