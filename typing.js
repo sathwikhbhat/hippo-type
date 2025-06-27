@@ -30,9 +30,11 @@ function newGame() {
 
 document.getElementById("game").addEventListener("keyup", ev => {
     const key = ev.key.toLowerCase();
+    const currentWord = document.querySelector(".word.current");
     const currentLetter = document.querySelector(".letter.current");
     const expectedLetter = currentLetter?.innerHTML || " ";
     const isLetter = key.length === 1 && key !== " ";
+    const isSpace = key === " ";
 
     console.log({key, expectedLetter});
 
@@ -44,6 +46,22 @@ document.getElementById("game").addEventListener("keyup", ev => {
         }
     }
 
+    if (isSpace) {
+        if (expectedLetter !== ' ') {
+            const lettersToInvalidate = [...document.querySelectorAll('.word.current .letter:not(.correct)')];
+            lettersToInvalidate.forEach(letter => {
+                addClass(letter, 'incorrect');
+            });
+        }
+        removeClass(currentWord, "current");
+        addClass(currentWord.nextSibling, "current");
+        if(currentLetter) {
+            removeClass(currentLetter, "current");
+        }
+            addClass(currentWord.nextSibling.firstChild, "current");
+    }
+
 })
+
 
 newGame();
