@@ -116,7 +116,7 @@ div.word {
     position: fixed;
     top: 198px;
     left: 18px;
-    animation: blink .3s infinite;
+    animation: blink .75s infinite;
 }
 
 #game:focus #cursor {
