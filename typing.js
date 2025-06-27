@@ -35,6 +35,9 @@ document.getElementById("game").addEventListener("keyup", ev => {
     const expectedLetter = currentLetter?.innerHTML || " ";
     const isLetter = key.length === 1 && key !== " ";
     const isSpace = key === " ";
+    const isBackspace = ev.key === "Backspace";
+    const isFirstLetter = currentLetter === currentWord.firstChild;
+
 
     console.log({key, expectedLetter});
 
@@ -42,8 +45,8 @@ document.getElementById("game").addEventListener("keyup", ev => {
         if (currentLetter) {
             addClass(currentLetter, key === expectedLetter ? "correct" : "incorrect");
             removeClass(currentLetter, "current");
-            if(currentLetter.nextSibling)
-            addClass(currentLetter.nextSibling, "current");
+            if (currentLetter.nextSibling)
+                addClass(currentLetter.nextSibling, "current");
         } else {
             const incorrectLetters = document.createElement("span");
             incorrectLetters.innerHTML = key;
@@ -66,6 +69,37 @@ document.getElementById("game").addEventListener("keyup", ev => {
             removeClass(currentLetter, "current");
         }
         addClass(currentWord.nextSibling.firstChild, "current");
+    }
+
+    if (isBackspace) {
+        if (currentLetter && isFirstLetter) {
+            removeClass(currentWord, 'current');
+            addClass(currentWord.previousSibling, 'current');
+            removeClass(currentLetter, 'current');
+            addClass(currentWord.previousSibling.lastChild, 'current');
+            removeClass(currentWord.previousSibling.lastChild, 'incorrect');
+            removeClass(currentWord.previousSibling.lastChild, 'correct');
+        }
+        if (currentLetter && !isFirstLetter) {
+            removeClass(currentLetter, 'current');
+            addClass(currentLetter.previousSibling, 'current');
+            removeClass(currentLetter.previousSibling, 'incorrect');
+            removeClass(currentLetter.previousSibling, 'correct');
+        }
+        if (!currentLetter) {
+            addClass(currentWord.lastChild, 'current');
+            removeClass(currentWord.lastChild, 'incorrect');
+            removeClass(currentWord.lastChild, 'correct');
+        }
+    }
+
+    const nextLetter = document.querySelector(".letter.current");
+    const nextWord = document.querySelector(".word.current");
+    if (!nextLetter) {
+        const nextWord = document.querySelector(".word.current");
+        const cursor = document.getElementById("cursor");
+        cursor.style.top = (nextLetter || nextWord).getBoundingClientRect().top + 2 + "px";
+        cursor.style.left = (nextLetter || nextWord).getBoundingClientRect()[nextLetter ? "left" : "right"] + 2 + "px";
     }
 
 })
