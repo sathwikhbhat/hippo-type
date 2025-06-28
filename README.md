@@ -10,6 +10,11 @@ Hippo Type is a minimal and fast typing speed test web app. It allows users to p
 - **Animated Cursor:** Blinking cursor follows your typing position.
 - **Instant Restart:** Start a new game with a single click.
 
+## Screenshots
+![Typing Test Screenshot](https://github.com/user-attachments/assets/7892e40c-3752-4a9c-9153-14b11c2fb0db)
+![Game Over Screenshot](https://github.com/user-attachments/assets/3636ffce-f029-4755-bf1f-20ff166f0e87)
+
+
 ## How It Works
 - The app displays a sequence of random words.
 - Start typing; the timer begins with your first keystroke.
