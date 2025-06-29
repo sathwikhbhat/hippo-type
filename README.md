@@ -1,6 +1,6 @@
 # Hippo Type
 
-Hippo Type is a minimal and fast typing speed test web app. It allows users to practice and measure their typing speed (WPM) built using basic HTML, CSS and JS.
+Hippo Type is a minimal, fast web app designed to test and improve typing speed (WPM). Built with basic HTML, CSS, and JavaScript, it allows users to practice and measure their typing performance.
 
 ## Features
 - **Typing Test:** Type randomly generated words for 30 seconds and get your WPM (words per minute) score.
